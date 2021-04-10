@@ -1,3 +1,3 @@
 # Calendar App
 
-Created with ReactJs ⚛️ and Redux
+Created with ReactJs and Redux ⚛️
