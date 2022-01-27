@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import Navbar from "../ui/Navbar";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/es";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+
 import { messages } from "../../helpers/calendar-messages-es";
+import { uiOpenModal } from "../../actions/ui";
+import { eventSetActive, eventUnsetActive } from "../../actions/events";
+import Navbar from "../ui/Navbar";
 import CalendarEvent from "./CalendarEvent";
 import CalendarModal from "./CalendarModal";
-import { useDispatch, useSelector } from "react-redux";
-import { uiOpenModal } from "../../actions/ui";
-import { eventSetActive } from "../../actions/events";
 import AddNewFab from "../ui/AddNewFab";
+import DeleteEventFab from "../ui/DeleteEventFab";
 
 moment.locale("es");
 
@@ -23,7 +25,7 @@ const CalendarScreen = () => {
 
   const dispatch = useDispatch();
 
-  const { events } = useSelector((state) => state.calendar);
+  const { events, activeEvent } = useSelector((state) => state.calendar);
 
   const onDoubleClick = (e) => {
     dispatch(uiOpenModal());
@@ -36,6 +38,12 @@ const CalendarScreen = () => {
   const onViewChange = (e) => {
     setLastView(e);
     localStorage.setItem("lastView", e);
+  };
+
+  const onSelectSlot = (e) => {
+    // TODO: open Model when clicking on an empty slot
+    console.log(e);
+    dispatch(eventUnsetActive());
   };
 
   // se va a disparar con ciertos argumentos
@@ -68,12 +76,15 @@ const CalendarScreen = () => {
         onDoubleClickEvent={onDoubleClick}
         onSelectEvent={onSelectEvent}
         onView={onViewChange}
+        onSelectSlot={onSelectSlot}
+        selectable={true}
         view={lastView}
         components={{
           event: CalendarEvent,
         }}
       />
       <AddNewFab />
+      {activeEvent && <DeleteEventFab activeEvent={activeEvent} />}
       <CalendarModal />
     </div>
   );

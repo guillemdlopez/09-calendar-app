@@ -60,14 +60,31 @@
 
 /* FABS */
 .fab {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   border-radius: 100%;
   bottom: 25px;
   font-size: 30px;
   padding: 25px;
   position: fixed;
   right: 25px;
+  transition: transform 0.3s;
 }
 
-.fab:active {
-  outline: none;
+.fab-danger {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  bottom: 25px;
+  padding: 10px;
+  position: fixed;
+  left: 25px;
+  transition: transform 0.3s;
+}
+
+.fab:active,
+.fab-danger:active {
+  outline: none !important;
+}
+
+.fab:hover,
+.fab-danger:hover {
+  transform: translateY(-10px);
 }

@@ -37,6 +37,14 @@ export const calendarReducer = (state = initialState, action) => {
         ),
       };
 
+    case types.eventDeleted:
+      return {
+        // siempre es bueno volver a regresar todo el state de nuevo porque podemos crear un nuevo state
+        ...state,
+        events: state.events.filter((e) => e.id !== state.activeEvent.id),
+        activeEvent: null,
+      };
+
     default:
       return state;
   }
