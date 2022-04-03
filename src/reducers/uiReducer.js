@@ -2,6 +2,8 @@ import { types } from "../types/types";
 
 const initialState = {
   modalOpen: false,
+  startDate: '',
+  endDate: ''
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -16,6 +18,13 @@ export const uiReducer = (state = initialState, action) => {
         ...state,
         modalOpen: false,
       };
+    
+    case types.uiGetDate:
+      return {
+        ...state,
+        startDate: action.payload.start,
+        endDate: action.payload.end
+      }
 
     default:
       return state;

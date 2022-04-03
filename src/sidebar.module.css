@@ -1,0 +1,32 @@
+.create {
+    background: #007bff;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.create:focus {
+    border: none;
+    outline: none;
+}
+
+.subtitle {
+    color: #3c4043;
+    font-weight: 500;
+}
+
+.sidebar {
+    width: 15vw;
+    padding: 1rem;
+}
+
+.sidebar__header {
+    display: flex;
+    justify-content: space-between;
+}

@@ -15,6 +15,7 @@ const initialState = {
       },
     },
   ],
+  calendars: [],
   activeEvent: null,
 };
 
@@ -36,6 +37,20 @@ export const calendarReducer = (state = initialState, action) => {
           e.id === action.payload.id ? action.payload : e
         ),
       };
+
+    case types.eventDeleted:
+      return {
+        // siempre es bueno volver a regresar todo el state de nuevo porque podemos crear un nuevo state
+        ...state,
+        events: state.events.filter((e) => e.id !== state.activeEvent.id),
+        activeEvent: null,
+      };
+    
+    case types.calendarsAddNew:
+      return {
+        ...state,
+        calendars: [...state.calendars, action.payload]
+      }
 
     default:
       return state;
