@@ -1,3 +1,4 @@
+
 export const types = {
   uiOpenModal: "[UI] Open Modal",
   uiCloseModal: "[UI] Close Modal",
@@ -10,5 +11,8 @@ export const types = {
   eventUpdate: "[event] Event Update",
   eventDeleted: "[event] Event Deleted",
 
-  calendarsAddNew: "[calendar] Add New"
+  calendarsAddNew: "[calendar] Add New",
+  activeCalendar: "[calendar] Active Calendar",
+
+  loginUser: "[user] login"
 };

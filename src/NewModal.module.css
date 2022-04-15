@@ -1,14 +1,14 @@
 .calendar_new_modal {
-    visibility: hidden;
     opacity: 0;
+    visibility: hidden;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);    
+    transform: translate(-50%, -58%);    
     z-index: 6;
     background: white;
     padding: 2rem;
-    transition: all .3s;
+    transition: all .6s;
     border-radius: 4px;
     min-width: 600px;
 }
@@ -22,8 +22,9 @@
 }
 
 .open {
-    visibility: visible;
     opacity: 1;
+    transform: translate(-50%, -50%);    
+    visibility: visible;
 }
 
 .submit_btn {
@@ -45,4 +46,8 @@
 
 .swatches input[type="radio"] {
     display: none;
+}
+
+.swatches .circle-picker {
+    width: 100% !important;
 }

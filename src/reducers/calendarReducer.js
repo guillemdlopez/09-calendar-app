@@ -8,15 +8,20 @@ const initialState = {
       title: "Cumpleaños del jefe",
       start: moment().toDate(),
       end: moment().add(2, "hours").toDate(),
-      bgcolor: "#fafafa",
+      bgcolor: "rgb(0, 123, 255)",
+      calendar: "Personal",
       user: {
         _id: "123",
         name: "Guillem",
       },
     },
   ],
-  calendars: [],
+  calendars: [{
+    name: 'Personal',
+    color: '#007bff'
+  }],
   activeEvent: null,
+  activeCalendars: []
 };
 
 export const calendarReducer = (state = initialState, action) => {
@@ -49,7 +54,13 @@ export const calendarReducer = (state = initialState, action) => {
     case types.calendarsAddNew:
       return {
         ...state,
-        calendars: [...state.calendars, action.payload]
+        calendars: [...state.calendars, { name: action.payload.calendar, color: action.payload.color }]
+      }
+
+    case types.activeCalendar:
+      return {
+        ...state,
+        activeCalendars: [...state.activeCalendars, action.payload]
       }
 
     default:

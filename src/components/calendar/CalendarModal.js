@@ -31,6 +31,7 @@ const initEvent = {
   notes: "",
   start: now.toDate(),
   end: nowPlus1.toDate(),
+  calendar: "Personal"
 };
 
 // CALENDAR FORM
@@ -42,11 +43,11 @@ const CalendarModal = () => {
   const dispatch = useDispatch();
 
   const { modalOpen } = useSelector((state) => state.ui);
-  const { activeEvent } = useSelector((state) => state.calendar);
+  const { activeEvent, calendars } = useSelector((state) => state.calendar);
 
   const [formValues, setFormValues] = useState({ initEvent });
 
-  const { title, notes, start, end } = formValues;
+  const { title, notes, start, end, calendar } = formValues;
 
   useEffect(() => {
     if (activeEvent) {
@@ -57,6 +58,8 @@ const CalendarModal = () => {
   }, [activeEvent, setFormValues]);
 
   const handleInputChange = ({ target }) => {
+
+    console.log([target.name]);
     setFormValues({
       ...formValues,
       [target.name]: target.value,
@@ -110,10 +113,13 @@ const CalendarModal = () => {
     if (activeEvent) {
       dispatch(eventUpdated(formValues));
     } else {
+      const bgcolor = calendars.find(cal => cal.name === calendar).color
+      
       dispatch(
         eventAddNew({
           ...formValues,
           id: new Date().getTime(),
+          bgcolor,
           user: {
             _id: "123",
             name: "Guillem",
@@ -188,6 +194,17 @@ const CalendarModal = () => {
           <small id="emailHelp" className="form-text text-muted">
             Información adicional
           </small>
+        </div>
+
+        <div className="form-group">
+          <select className="form-control" name="calendar" onChange={handleInputChange}>
+            {
+              calendars.map(calendar => {
+                const { name } = calendar;
+                return <option key={name} value={name} name="calendar">{name}</option>
+              })
+            }
+          </select>
         </div>
 
         <button type="submit" className="btn btn-outline-primary btn-block">
