@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createUser } from "../../firebase/firebase-config";
-import { errorMessage } from "../../helpers/user-messages";
+import { loginWithEmailPassword, loginWithGoogle } from "../../firebase/firebase-config";
 import "./login.css";
+import google from '../../images/google-logo.png';
+import background from '../../images/background-login.svg';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const initForm = {
-    "name": "",
     "email": "",
-    "password": "",
-    "passwordRepeat": ""
+    "password": ""
   }
 
   const [formValues, setFormValues] = useState(initForm);
 
-  const { name, email, password, passwordRepeat } = formValues;
+  const { email, password } = formValues;
 
   const handleInputChange = ({ target }) => {
     setFormValues({
@@ -24,59 +25,30 @@ const LoginScreen = () => {
     })
   }
 
-  const handleUserCreate = (e) => {
-    e.preventDefault();
-    console.log(password, passwordRepeat) 
-
-    if (password !== passwordRepeat) {
-      errorMessage("Wrong password", "Both passwords must be exactly the same")
-      return
-    }
-
-    dispatch(createUser(name, email, password))
+  const handleGoogleLogin = () => {
+    dispatch(loginWithGoogle());
   }
+
+  const handleUserLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginWithEmailPassword(email, password));
+  }
+
   return (
     <div className="container login-container">
-      <div className="row mb-5">
-        <div className="col-md-6 login-form-1">
-          <h3>Ingreso</h3>
-          <form className="login-form">
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Correo"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Contraseña"
-              />
-            </div>
-            <div className="form-group">
-              <input type="submit" className="btnSubmit" value="Login" />
-            </div>
-          </form>
-        </div>
+      <img src={background} width={"100%"} height={"100%"} className="background-img" alt="Background login"/>
 
-        <div className="col-md-6 login-form-2">
-          <h3>Registro</h3>
-          <form className="signup-form" onSubmit={handleUserCreate}>
+      <div className="row justify-content-between">
+        <div className="col-md-5 login__greeting">
+          <h1>Calendlify</h1>
+          <p>Organize your present and future. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum.</p>
+        </div>
+        <div className="col-md-5 login-form-1">
+          <h2>Sign in</h2>
+          <form className="login-form" onSubmit={handleUserLogin}>
             <div className="form-group">
               <input
                 type="text"
-                className="form-control"
-                placeholder="Name"
-                name="name"
-                value={name}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="email"
                 className="form-control"
                 placeholder="Email"
                 name="email"
@@ -88,29 +60,29 @@ const LoginScreen = () => {
               <input
                 type="password"
                 className="form-control"
-                placeholder="Password"
+                placeholder="Contraseña"
                 name="password"
                 value={password}
                 onChange={handleInputChange}
               />
             </div>
-
             <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Confirm the password"
-                name="passwordRepeat"
-                value={passwordRepeat}
-                onChange={handleInputChange}
-              />
+              <input type="submit" className="btnSubmit" value="Login" />
             </div>
+            <p className="text-center">OR</p>
 
-            <div className="form-group">
-              <input type="submit" className="btnSubmit" value="Crear cuenta" />
+            <div className="btn__google" onClick={handleGoogleLogin}>
+              <div className="btn__google-logo">
+                <img src={google} width={"30"} alt="Google logo" />
+              </div>
+              <div className="btn__google-txt">
+                <p>Sign in with Google</p>
+              </div>
             </div>
+            <Link to="/auth/signup" className="small signup-link mt-3 text-right">Haven't got any account? <strong>Sign up</strong></Link>
           </form>
         </div>
+
       </div>
     </div>
   );

@@ -1,11 +1,10 @@
 import React from "react";
 
 const CalendarEvent = ({ event }) => {
-  const { title, user } = event;
+  const { title } = event;
   return (
     <div>
-      <span>{title} </span>
-      <strong>- {user.name}</strong>
+      <span>{title}</span>
     </div>
   );
 };

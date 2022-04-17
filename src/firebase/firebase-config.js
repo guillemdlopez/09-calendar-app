@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { signInWithEmailAndPassword, GoogleAuthProvider, getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { signInWithEmailAndPassword, GoogleAuthProvider, getAuth, createUserWithEmailAndPassword, updateProfile, signInWithPopup } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { errorMessage } from "../helpers/user-messages";
-import { login } from "../actions/auth";
+import { login, logout } from "../actions/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,11 +22,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app)
+export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
+const auth = getAuth();
+
 
 export const createUser = (name, email, password, photo) => {
-  const auth = getAuth();
   console.log(email, password);
 
   return (dispatch) => {
@@ -41,3 +43,40 @@ export const createUser = (name, email, password, photo) => {
       })        
   }
 }
+
+export const loginWithGoogle = () => {
+  return (dispatch) => {
+    signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const { user } = result;
+      const { displayName, email, uid } = user;
+      dispatch(login(uid, displayName, email))
+  
+    }).catch((err) => {
+      errorMessage("Something went wrong...", err.message)
+    });
+  }
+}
+
+export const loginWithEmailPassword = (email, password) => {
+  return (dispatch) => {
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const { user } = userCredential;
+      const { displayName, email, uid} = user;
+      dispatch(login(uid, displayName, email))
+    }).catch((err) => {
+      errorMessage("Something went wrong...", err.message)
+    })
+  }
+}
+
+export const startLogout = () => {
+  return async (dispatch) => {
+    await auth.signOut()
+
+    dispatch(logout());
+  };
+};

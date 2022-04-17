@@ -1,5 +1,12 @@
+:root {
+  --blue: #3F86F4;
+  --extra-big-header: 70px;
+  --big-header: 48px;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 
 button:focus {
@@ -8,6 +15,10 @@ button:focus {
 
 label {
   margin: 0;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 .calendar-screen {
@@ -129,4 +140,17 @@ label {
 
 input[type=radio]:checked + .color_swatch {
   border: 2px solid #111111;
+}
+
+.medium {
+  font-size: 14px;
+}
+
+.small {
+  font-size: 10px;
+}
+
+.rbc-header {
+  text-transform: capitalize;
+  padding: 5px 0;
 }

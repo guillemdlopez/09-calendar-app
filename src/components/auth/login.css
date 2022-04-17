@@ -1,27 +1,61 @@
+::-webkit-input-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+:-moz-placeholder {
+  font-size: 12px !important;
+  color: orange;
+}
+
+input {
+  font-size: 14px !important;
+}
+
+.login-container h1 {
+  font-weight: 700;
+  font-size: var(--extra-big-header);
+}
+
+.login__greeting {
+  width: 50%;
+  z-index: 1;
+}
+
+.login__greeting p {
+  font-size: 18px;
+  line-height: 2.2rem;
+  font-weight: 300;
+}
+
 .login-container {
-  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
 }
 .login-form-1 {
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 5px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
   padding: 5%;
+  background: #fff;
 }
-.login-form-1 h3 {
+.login-form-1 h2 {
   text-align: center;
   color: #333;
+  font-weight: 700;
 }
 .login-form-2 {
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 5px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
   padding: 5%;
-  background: #0062cc;
+  background: #fff;
 }
 .login-form-2 h3 {
   text-align: center;
-  color: #fff;
+  color: #333;
+  font-weight: 700;
 }
 .login-container form {
-  padding: 10%;
+  padding: 10% 0%;
 }
 .btnSubmit {
   width: 50%;
@@ -34,11 +68,11 @@
 }
 .login-form-1 .btnSubmit {
   color: #fff;
-  background-color: #0062cc;
+  background-color: var(--blue);
 }
 .login-form-2 .btnSubmit {
-  background-color: #fff;
-  color: #0062cc;
+  color: #fff;
+  background-color: var(--blue);
 }
 .login-form-2 .ForgetPwd {
   color: #fff;
@@ -46,7 +80,50 @@
   text-decoration: none;
 }
 .login-form-1 .ForgetPwd {
-  color: #0062cc;
+  color: var(--blue);
   font-weight: 600;
   text-decoration: none;
+}
+
+.btn__google {
+  display: flex;
+  align-items: center;
+  background: var(--blue);
+  box-shadow: 0px 7px 9px rgb(0 0 0 / 15%);
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.btn__google p {
+  margin: 0;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.btn__google-logo {
+  background: #fff;
+  padding: 6px;
+}
+
+.btn__google-txt {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.background-img {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  object-fit: cover;
+  object-position: left;
+  background: linear-gradient(180deg,#fff -.01%, #3f86f48a 99.99%);
+}
+
+.signup-link {
+  display: block;
+  text-align: center;
 }
